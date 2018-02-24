@@ -1,0 +1,25 @@
+{
+  "name": "piwall-weather",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codescribe9/piwall-weather.git"
+  },
+  "author": "Venkata Rapaka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codescribe9/piwall-weather/issues"
+  },
+  "homepage": "https://github.com/codescribe9/piwall-weather#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "moment": "^2.20.1",
+    "query-string": "^5.1.0",
+    "request": "^2.83.0"
+  }
+}
