@@ -1,0 +1,13 @@
+<link rel="stylesheet" type="text/css" href="css/todo.css">
+<div class="center">
+ {{#each projects}} {{#if this.tasks}}
+<h1>{{name}}</h1>
+<ul>
+    {{#each tasks}}
+    <li>
+        {{> task}}
+    </li>
+    {{/each}}
+</ul>
+{{/if}} {{/each}}
+</div>

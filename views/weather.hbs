@@ -1,8 +1,9 @@
+<link rel="stylesheet" type="text/css" href="css/weather.css">
 <div class="center">
     <div id="title">
         <span class="currently">
             <span class="skycon swip">
-                <canvas width="84" height="84" class="{{currently.icon}}"></canvas>
+                <canvas width="84" height="84" id="icon_current" class="{{currently.icon}}"></canvas>
             </span>
             <span class="desc swap">
                 <span class="summary swap">{{currently.temperature}}˚&nbsp;{{{currently.summary}}}.</span>
@@ -32,3 +33,12 @@
 </div>
 {{/each}}
 </div>div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js" integrity="sha256-ABVkpwb9K9PxubvRrHMkk6wmWcIHUE9eBxNZLXYQ84k="
+        crossorigin="anonymous"></script>
+    <script async type="text/javascript" src="js/skycons.js"></script>    
+    <script async type="text/javascript" src="js/weather.js"></script>
