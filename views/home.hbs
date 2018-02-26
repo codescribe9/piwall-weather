@@ -1,0 +1,34 @@
+<div class="center">
+    <div id="title">
+        <span class="currently">
+            <span class="skycon swip">
+                <canvas width="84" height="84" class="{{currently.icon}}"></canvas>
+            </span>
+            <span class="desc swap">
+                <span class="summary swap">{{currently.temperature}}˚&nbsp;{{{currently.summary}}}.</span>
+                <span class="summary-high-low">
+                    <span>
+                        <span class="high-low-label">Feels Like</span>:&nbsp;{{currently.apparentTemperature}}˚</span>
+                    <span>
+                        <span class="high-low-label">Low</span>:&nbsp;{{{daily.data.[0].temperatureLow}}}˚</span>
+                    <span>
+                        <span class="high-low-label">High</span>:&nbsp;{{daily.data.[0].temperatureHigh}}˚</span>
+                </span>
+            </span> 
+        </span>
+        <span class="next swap">
+            {{{hourly.summary}}}
+        </span>
+    </div>
+</div>
+
+<div id="week" class="center">
+        <div class="summary">
+          {{{daily.summary}}}
+        </div>
+{{#each daily.data}}
+<div class="day">
+{{> weekDay}}
+</div>
+{{/each}}
+</div>div>
