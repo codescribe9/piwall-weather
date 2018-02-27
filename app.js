@@ -21,6 +21,23 @@ app.use('/', express.static(path.join(__dirname, './public')));
 
 const port = process.env.PORT || 3002;
 
+app.get('/quotes', (req, res) => {
+
+    var json = '{"success": {"total": 1},"contents": {"quotes": [{"quote": "From now on we live in a world where man has walked on the Moon. It\'s not a miracle; we just decided to go.","length": "107","author": "Tom Hanks","tags": ["humor","inspire","man","miracles","moon"],"category": "inspire","date": "2018-02-26","permalink": "https://theysaidso.com/quote/9rDc8ymrY7VZQHCUf6Xf1AeF/tom-hanks-from-now-on-we-live-in-a-world-where-man-has-walked-on-the-moon-its-no","title": "Inspiring Quote of the day","background": "https://theysaidso.com/img/bgs/man_on_the_mountain.jpg","id": "9rDc8ymrY7VZQHCUf6Xf1AeF"}],"copyright": "2017-19 theysaidso.com"}}';
+    var body1 = JSON.parse(json)
+    res.render('quotes', body1.contents.quotes[0])
+
+    // var urlProjects = 'http://quotes.rest/qod.json?category=funny&maxlength=300'
+    // request({ url: urlProjects, json: true }, (err1, res1, body1) => {
+    //     if (err1) {
+    //         console.log(err1)
+    //         return
+    //     }
+    //     console.log(body1)
+    //     res.render('quotes', body1.contents.quotes[0])
+    // })
+});
+
 app.get('/todo', (req, res) => {
     var urlProjects = 'http://localhost:3600/todo/projects'
     request({ url: urlProjects, json: true }, (err1, res1, body1) => {
