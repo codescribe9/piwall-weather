@@ -9,8 +9,82 @@ const morgan = require("morgan")
 const request = require('request')
 
 
+var hbs = exphbs.create({
+    extname: '.hbs', defaultLayout: 'layout',
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        math: function (lvalue, operator, rvalue, options) {
+            if (isNaN(lvalue)) {
+                //todo return error: invalid input
+            }
+
+            if (isNaN(rvalue)) {
+                //todo return error: invalid input
+            }
+
+            lvalue = parseFloat(lvalue);
+            rvalue = parseFloat(rvalue);
+            var result = 0;
+            switch (operator) {
+                case "+":
+                    result = lvalue + rvalue
+                    break
+                case "-":
+                    result = lvalue - rvalue
+                    break
+                case "*":
+                    result = lvalue * rvalue
+                    break
+                case "/":
+                    result = lvalue / rvalue
+                    break
+                case "%":
+                    result = lvalue % rvalue
+                    break
+            }
+
+            return result
+        },
+        ifLogical: function (lvalue, operator, rvalue, options) {
+            
+            if (isNaN(lvalue) && isNaN(rvalue)) {                
+                lvalue = parseFloat(lvalue);
+                rvalue = parseFloat(rvalue);
+            }
+            var result = false;
+            switch (operator) {
+                case ">":
+                    result = lvalue > rvalue
+                    break
+                case "<":
+                    result = lvalue < rvalue
+                    break
+                case "=":
+                    result = lvalue = rvalue
+                    break
+                case "!=":
+                    result = lvalue != rvalue
+                    break
+                case ">=":
+                    result = lvalue >= rvalue
+                    break
+                case "<=":
+                    result = lvalue <= rvalue
+                    break
+            }
+            console.log(lvalue, operator, rvalue, result)
+            if (result) {
+                return options.fn(this)
+            } else {
+                return options.inverse(this)
+            }
+        }
+    }
+});
+
+
 var app = express();
-app.engine('.hbs', exphbs({ extname: '.hbs', defaultLayout: 'layout' }));
+app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 var server = http.createServer(app);
 app.use(morgan('dev'));
@@ -54,7 +128,7 @@ app.get('/todo', (req, res) => {
             }
 
             if (body1 && body2) {
-                
+
                 _.each(body1.projects, function (item, index) {
                     item.tasks = _.filter(body2.tasks, { 'project_id': item.id })
                 })
@@ -89,11 +163,14 @@ app.get('/weather', (req, res) => {
             let weekTempMarginUnit = 100 / (weekTempMax - weekTempMin);
             //console.log('weekTempMax', weekTempMax, 'weekTempMin', weekTempMin, 'weekTempMarginUnit', weekTempMarginUnit)
 
+            var currently = body1.data.currently
+            currently.temperatureInt = Math.round(currently.temperature)
+            currently.apparentTemperatureInt = Math.round(currently.apparentTemperature)
 
             _.each(body1.data.daily.data, function (item, index) {
 
-                item.temperatureMinInt = Math.floor(item.temperatureMin)
-                item.temperatureMaxInt = Math.ceil(item.temperatureMax)
+                item.temperatureMinInt = Math.round(item.temperatureMin)
+                item.temperatureMaxInt = Math.round(item.temperatureMax)
 
                 let l = (item.temperatureMinInt - weekTempMin) * weekTempMarginUnit;
                 let m = 100 - ((weekTempMax - item.temperatureMaxInt) * weekTempMarginUnit)
@@ -107,6 +184,23 @@ app.get('/weather', (req, res) => {
                 else
                     item.name = moment(item.time * 1000).format('ddd')
                 //console.log('m', m, 'l', l, 'item.temperatureMin', item.temperatureMin, 'item.temperatureMax', item.temperatureMax)
+            })
+
+            _.each(body1.data.hourly.data, function (item, index) {
+                item.tempLeft = Math.round((index / 2) * 66.6667)
+                item.temperatureInt = _.toInteger(item.temperature)
+                item.displayTemp = false
+                if (index % 2 == 0 && index < 24) {
+                    item.displayTemp = true
+                }
+
+                item.displayHour = false
+                if (index < 24) {
+                    item.displayHour = true
+                    item.hourLeft = Math.round(index * 66.6667)
+                    item.hourFormat = moment(item.time * 1000).format('ha')
+                    //console.log(item.time, item.hourFormat)
+                }
             })
 
             res.render('weather', body1.data)

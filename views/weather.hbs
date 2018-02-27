@@ -6,16 +6,16 @@
                 <canvas width="84" height="84" id="icon_current" class="{{currently.icon}}"></canvas>
             </span>
             <span class="desc swap">
-                <span class="summary swap">{{currently.temperature}}˚&nbsp;{{{currently.summary}}}.</span>
+                <span class="summary swap">{{currently.temperatureInt}}˚&nbsp;{{{currently.summary}}}.</span>
                 <span class="summary-high-low">
                     <span>
-                        <span class="high-low-label">Feels Like</span>:&nbsp;{{currently.apparentTemperature}}˚</span>
+                        <span class="high-low-label">Feels Like</span>:&nbsp;{{currently.apparentTemperatureInt}}˚</span>
                     <span>
-                        <span class="high-low-label">Low</span>:&nbsp;{{{daily.data.[0].temperatureLow}}}˚</span>
+                        <span class="high-low-label">Low</span>:&nbsp;{{{daily.data.[0].temperatureMinInt}}}˚</span>
                     <span>
-                        <span class="high-low-label">High</span>:&nbsp;{{daily.data.[0].temperatureHigh}}˚</span>
+                        <span class="high-low-label">High</span>:&nbsp;{{daily.data.[0].temperatureMaxInt}}˚</span>
                 </span>
-            </span> 
+            </span>
         </span>
         <span class="next swap">
             {{{hourly.summary}}}
@@ -23,22 +23,101 @@
     </div>
 </div>
 
-<div id="week" class="center">
-        <div class="summary">
-          {{{daily.summary}}}
+<div class="scroll-container">
+    <div id="timeline" class="timeline_container" style="width: 800px;">
+        <div class="timeline">
+            <div class="stripes">
+                <span class="c0 c first" style="width: 34.3333px; left: 0px;"></span>
+                <span class="c1 c" style="width: 67.6667px; left: 33.3333px;"></span>
+                <span class="p2 p" style="width: 67.6667px; left: 100px;">
+                    <span>light rain</span>
+                </span>
+                <span class="p3 p" style="width: 134.333px; left: 166.667px;">
+                    <span>rain</span>
+                </span>
+                <span class="p4 p" style="width: 34.3333px; left: 300px;"></span>
+                <span class="p3 p" style="width: 101px; left: 333.333px;">
+                    <span>rain</span>
+                </span>
+                <span class="p2 p" style="width: 134.333px; left: 433.333px;">
+                    <span>light rain</span>
+                </span>
+                <span class="c2 c" style="width: 232.333px; left: 566.667px;">
+                    <span>overcast</span>
+                </span>
+            </div>
+            <div class="hour_ticks">
+                <span class="even first" style="left: 0px;"></span>
+                <span class="odd second" style="left: 33.3333px;"></span>
+                <span class="even" style="left: 66.6667px;"></span>
+                <span class="odd" style="left: 100px;"></span>
+                <span class="even" style="left: 133.333px;"></span>
+                <span class="odd" style="left: 166.667px;"></span>
+                <span class="even" style="left: 200px;"></span>
+                <span class="odd" style="left: 233.333px;"></span>
+                <span class="even" style="left: 266.667px;"></span>
+                <span class="odd" style="left: 300px;"></span>
+                <span class="even" style="left: 333.333px;"></span>
+                <span class="odd" style="left: 366.667px;"></span>
+                <span class="even" style="left: 400px;"></span>
+                <span class="odd" style="left: 433.333px;"></span>
+                <span class="even" style="left: 466.667px;"></span>
+                <span class="odd" style="left: 500px;"></span>
+                <span class="even" style="left: 533.333px;"></span>
+                <span class="odd" style="left: 566.667px;"></span>
+                <span class="even" style="left: 600px;"></span>
+                <span class="odd" style="left: 633.333px;"></span>
+                <span class="even" style="left: 666.667px;"></span>
+                <span class="odd" style="left: 700px;"></span>
+                <span class="even" style="left: 733.333px;"></span>
+                <span class="odd" style="left: 766.667px;"></span>
+            </div>
+            <div class="hours">
+                {{#each hourly.data}} {{#ifLogical displayHour '=' true}}                    
+                        {{#if @first}}
+                             <span class="hour {{#if @first}}first{{/if}}" style="left: {{hourLeft}}px;">                
+                                <span class="Now">Now</span>
+                            </span> 
+                        {{else}}
+                            {{#ifLogical (math @index '%' 2) '=' 0}}
+                             <span class="hour {{#if @first}}first{{/if}}" style="left: {{hourLeft}}px;">                
+                                <span class="{{hourFormat}}">{{hourFormat}}</span>
+                             </span>
+                            {{/ifLogical}}
+                        {{/if}}
+                   
+                    <span class="hour" style="left: {{#math hourLeft '+' 33.3333}}{{/math}}px;"></span>
+                 {{/ifLogical}} {{/each}}                
+            </div>
+            <div class="temps">
+                {{#each hourly.data}} {{#if displayTemp}}
+                <span {{#if @first}}class="first" {{/if}} style="opacity: 0.254127; left: {{tempLeft}}px;">
+                    <span>{{temperatureInt}}°</span>
+                </span>
+                {{/if}} {{/each}}
+            </div>
         </div>
-{{#each daily.data}}
-<div class="day">
-{{> weekDay}}
+        <span class="now" style="left: 3px;"></span>
+    </div>
 </div>
-{{/each}}
+
+
+<div id="week" class="center">
+    <div class="summary">
+        {{{daily.summary}}}
+    </div>
+    {{#each daily.data}}
+    <div class="day">
+        {{> weekDay}}
+    </div>
+    {{/each}}
 </div>div>
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js" integrity="sha256-ABVkpwb9K9PxubvRrHMkk6wmWcIHUE9eBxNZLXYQ84k="
-        crossorigin="anonymous"></script>
-    <script async type="text/javascript" src="js/skycons.js"></script>    
-    <script async type="text/javascript" src="js/weather.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js" integrity="sha256-ABVkpwb9K9PxubvRrHMkk6wmWcIHUE9eBxNZLXYQ84k="
+    crossorigin="anonymous"></script>
+<script async type="text/javascript" src="js/skycons.js"></script>
+<script async type="text/javascript" src="js/weather.js"></script>
