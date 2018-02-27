@@ -1,14 +1,10 @@
 <link rel="stylesheet" type="text/css" href="css/quotes.css">
 
-<div class="columns is-vcentered" style="height:100vh;">
-    <div class="column is-one-fifth">&nbsp;</div>
-    <div class="column is-two-thirds">
-        <blockquote style="padding-left:20px">
-            <p class="is-italic has-text-weight-semibold">{{quote}}</p>
-            <br/><div>- {{author}}</span>
-        </blockquote>
-    </div>
-</div>
+
+    {{> quote funny.contents.quotes.[0]}}
+    <br/><br/>
+    {{> quote inspire.contents.quotes.[0]}}
+
 
  <div class="is-pulled-right" >
     <span style="z-index:50;font-size:0.9em; margin-right:10px;">
@@ -16,3 +12,7 @@
         <a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #9fcc25; margin-left: 4px; vertical-align: middle;">theysaidso.com</a>
     </span>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/quotes.js"></script>
