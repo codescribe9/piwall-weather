@@ -1,34 +1,22 @@
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.8.0/slick.css"/>
+<link rel="stylesheet" type="text/css" href="css/slick.css"/>
+<link rel="stylesheet" type="text/css" href="css/news.css"/>
 
 
-<div class="columns is-vcentered" style="height:80vh;">
-    <div class="column is-one-third">&nbsp;</div>
-    <div class="column is-one-third">
-            <div class="title"><h2>{{{news.0.title}}}</h2></div>
-            {{{news.0.content}}}        
-    </div>        
+<div class="news-items">    
+    {{#each news}}
+    <div class="news-item">
+        <span class="content">
+            <div class="title">{{{title}}}</div>
+            {{{content}}}                        
+        </span>        
+        </div>
+    {{/each}}
 </div>
 
-
-{{#each news}}
-    {{#if @first}}    
-        <div class="columns">
-    {{else}}
-            <div class="column is-one-third">
-                <div class="title"><h2>{{{title}}}</h2></div>
-                {{{content}}}                        
-            </div> 
-        {{#ifLogical (math @index '%' 3) '=' 0}}
-        </div>        
-        <div class="columns">
-        {{/ifLogical}}
-    {{/if}}
-{{/each}}
-</div>
 
 
     
  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.8.0/slick.min.js"></script>
+<script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript" src="js/news.js"></script>
