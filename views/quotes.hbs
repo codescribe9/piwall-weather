@@ -1,18 +1,26 @@
+
+<link rel="stylesheet" type="text/css" href="css/slick.css"/>
 <link rel="stylesheet" type="text/css" href="css/quotes.css">
 
 
-    {{> quote funny.contents.quotes.[0]}}
-    <br/><br/>
-    {{> quote inspire.contents.quotes.[0]}}
+<div class="quotes">
+    <div class="quote">
+            {{> quote funny.contents.quotes.[0]}}
+    </div>    
+    <div class="quote">
+            {{> quote inspire.contents.quotes.[0]}}
+    </div>    
+</div>
 
-
- <div class="is-pulled-right" >
+    
+ {{!-- <div class="is-pulled-right" >
     <span style="z-index:50;font-size:0.9em; margin-right:10px;">
         <img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com" />
         <a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #9fcc25; margin-left: 4px; vertical-align: middle;">theysaidso.com</a>
     </span>
-</div>
+</div> --}}
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/slick.min.js"></script>    
 <script type="text/javascript" src="js/quotes.js"></script>
