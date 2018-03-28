@@ -45,3 +45,13 @@ blockquote {
        half as far down as the superscript moved up */
     bottom: -0.25em;
   }
+
+  .fa-quote-left {
+    font-size:3em;
+    margin-bottom: 30px;    
+  }
+
+  .fa-quote-right {
+    font-size:3em;
+    margin-bottom: 30px;    
+  }
