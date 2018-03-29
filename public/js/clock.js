@@ -91,5 +91,14 @@ var digits = [[// 0
     function stopClock() {
       clearInterval(interval);
     }
+
     
-    startClock();
+    function setCurrentDate(){
+      document.getElementById('divCurrentDate').innerText = (moment().format('LLLL'));
+    }
+
+    (function () {
+      startClock();
+      setCurrentDate();
+  })()
+    
