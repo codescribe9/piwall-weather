@@ -1,4 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/clock.css">
+
+<div id="divCurrentDate" style="margin:20px; font-weight:bold; font-size:80px;"></div>
 <div class="art">
 
   <div class="digit">
@@ -34,7 +36,7 @@
     {{/each}}
   </div>
 </div>
-<div class="text">
+{{!-- <div class="text">
   <h1>Clock Clock 24</h1>
   <p>
     <small>Code</small>
@@ -46,8 +48,9 @@
     <br/>
     <a href="http://www.humanssince1982.com/">Humans since 1982</a>
   </p>
-</div>
+</div> --}}
 <div class="trigger trigger--left"></div>
 <div class="trigger trigger--right"></div>
 
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
 <script async type="text/javascript" src="js/clock.js"></script>

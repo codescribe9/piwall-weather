@@ -9,8 +9,8 @@
       });
 
     //$('.columns[category="funny"]').toggle()
-    //toggleQuotes()
-    //setInterval(toggleQuotes, 3000)
+    toggleQuotes()
+    setInterval(toggleQuotes, 3000)
     
 })()
 
